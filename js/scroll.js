@@ -28,22 +28,34 @@
             this.$slider = $(opts.sliderSelector);
             this.$bar = $(opts.barSelector) ? $(opts.barSelector) : this.$slider.parent();
             this.$doc = $(doc);
-            this.$tabItem = $(opts.tabActiveClass);
+            self.$tabItem = $(opts.tabItemSelector);
+             self.$anchor = $(opts.anchorSelector);
             self._initSliderDragEvent();
             self._bindContScroll();
             self._bindMouseWheel();
             self._initTabEvent();
+            self.getAllAnchorPosition();
                 /*self._initArticleHeight();*/
-            /*    self.getAllAnchorPosition();*/
                 return self;
         },
+         getAllAnchorPosition:function(){
+            	var self = this;
+            	var allPositionArr = [];
+            	for(var i=0;i<self.$anchor.length;i++){
+            		allPositionArr.push(self.$cont[0].scrollTop + self.getAnchorPosition(i));
+            	}
+            	return allPositionArr;
+            },
+            getAnchorPosition:function(index){
+            	return this.$anchor.eq(index).position().top;
+            },
           _initTabEvent:function(){
             	var self = this;
             	self.$tabItem.on('click',function(e){
             		e.preventDefault();
             		var index = $(this).index();
             		self.changeTabSelect(index);
-            		/*self.scrollTo(self.$cont[0].scrollTop + self.getAnchorPosition(index));*/
+            		self.scrollTo(self.$cont[0].scrollTop + self.getAnchorPosition(index));
             	});
             },
              changeTabSelect:function(index){
