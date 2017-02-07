@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		p{
+			height: 200px;
+		}
+		.wow{
+			width:100px;
+			height: 100px;
+			background: #afa;
+			margin:0 auto 100px;
+			opacity: 0;
+		}
+		.fadeIn{
+			animation: move 1s linear both;
+		}
+		@keyframes move{
+			from{
+				transform: translateX(-800%);
+				opacity: .5;
+			}
+			50%{
+				transform: translateX(-200%);
+				opacity: .8;
+			}
+			70%{
+				transform: translateX(100%);
+				opacity: .8;
+			}
+			90%{
+				transform: translateX(20%);
+				opacity: .8;
+			}
+			to{
+				transform: none;
+				opacity: 1;
+			}
+		}
+		.temp{
+			width:100px;
+			height: 100px;
+			
+			background: #afa;
+			transform: rotate3d(1,0,0,80deg);
+		}
+		.container{
+			perspective: 800px;
+			transform-style: preserve-3d;	
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+	    <div class="temp">
+	    	
+	    </div>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<div class="wow"></div>
+		<div class="wow"></div>
+		<div class="wow"></div>
+	</div>
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script>
+		$(function(){
+			$(window).scroll(function(){
+				var kj_height = $(window).height();
+				var scrollTop = $(window).scrollTop();
+				var items = $('.wow');
+					items.each(function(){
+						var itemTop = $(this).offset().top;
+						if(scrollTop + kj_height>itemTop + 100){
+							$(this).addClass('fadeIn');
+						}else if($(this).hasClass('fadeIn')){
+							$(this).removeClass('fadeIn')
+						}else{
+							return false;
+						}
+					})
+			})
+		})
+	</script>
+</body>
+</html>
